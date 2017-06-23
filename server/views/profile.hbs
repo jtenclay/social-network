@@ -1,12 +1,17 @@
-<h1>{{name}}</h1>
-<p>Favorite emoji: {{favoriteEmoji}}</p>
+<h1>{{friend.name}}</h1>
+<p>Favorite emoji: {{friend.favoriteEmoji}}</p>
 
-{{#if loggedIn}}
+{{#if friend.loggedIn}}
 <p>This is you!! wow</p>
 {{/if}}
 
 <ol>
-	{{#each friends}}
-		<li><a href="profile?id={{this.id}}">{{this.name}}</a></li>
+	{{#each messages}}
+		<li>{{this.emojiMessage}}</li>
 	{{/each}}
 </ol>
+
+<input id="emoji-field" placeholder="emoji" />
+<input id="to-field" placeholder="to" />
+<input id="from-field" placeholder="from" />
+<button type="submit" id="send-emoji">Submit</button>
