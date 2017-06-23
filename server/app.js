@@ -10,36 +10,33 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
 
-var database = require("./fake-database.js");
-
-var pizzas = ["saus", "peps"];
 
 app.get("/profile", function(req, res) {
 	var person = database[req.query.id]
 	res.render("profile", person);
 });
 
-app.get("/pizzas", function(req, res) {
-	res.json(pizzas)
+app.get("/friends", function(req, res) {
+	res.json(friends)
 });
 
-app.get("/pizzas/:index", function(req, res) {
-	res.json(pizzas[req.params.index]);
+app.get("/friends/:id", function(req, res) {
+	res.json(friends[req.params.id]);
 });
 
-app.post("/pizzas", function(req, res) {
-	pizzas.push(req.body.topping);
-	res.json(pizzas);
+app.post("/friends", function(req, res) {
+	friends.push(req.body.topping);
+	res.json(friends);
 });
 
-app.patch("/pizzas/:index", function(req, res) {
-	pizzas[req.params.index] = req.body.topping;
-	res.json(pizzas);
+app.patch("/friends/:id", function(req, res) {
+	friends[req.params.id] = req.body.topping;
+	res.json(friends);
 })
 
-app.delete("/pizzas/:index", function(req, res) {
-	pizzas.splice(req.params.index, 1);
-	res.json(pizzas);
+app.delete("/friends/:id", function(req, res) {
+	friends.splice(req.params.id, 1);
+	res.json(friends);
 })
 
 server.listen(3000, function(){
