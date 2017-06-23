@@ -1,0 +1,12 @@
+<h1>{{name}}</h1>
+<p>Favorite emoji: {{favoriteEmoji}}</p>
+
+{{#if loggedIn}}
+<p>This is you!! wow</p>
+{{/if}}
+
+<ol>
+	{{#each friends}}
+		<li><a href="profile?id={{this.id}}">{{this.name}}</a></li>
+	{{/each}}
+</ol>
