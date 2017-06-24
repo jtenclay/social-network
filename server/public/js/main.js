@@ -1,12 +1,12 @@
 console.log("ok")
 
 $("#send-emoji").click(function() {
-	var emoji = $("emoji-field").val();
-	var to = $("to-field").val();
-	var from = $("from-field").val();
+	var emojiMessage = $("#emoji-field").val();
+	var to = $("#to-field").val();
+	var from = $("#from-field").val();
 	var timeStamp = $.now();
 	var newMessage = {
-		emoji: emoji,
+		emojiMessage: emojiMessage,
 		to: to,
 		from: from,
 		timeStamp: timeStamp
