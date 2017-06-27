@@ -8,13 +8,15 @@ var express = require("express"),
 
 router.use(bodyParser.urlencoded({extended: true}));
 
-
-
 router.get("/", function(req, res) {
+	var myId;
+	if (req.session.loggedIn === true) {
+		myId = req.session.myId;
+	};
 	Friend.find(function(err, friends) {
-		var listOfFriends = {friends};
+		var listOfFriends = {friends, myId: myId};
+		console.log(listOfFriends)
 		res.render("friends-list", listOfFriends);
-		console.log(listOfFriends);
 	})
 });
 
@@ -27,6 +29,7 @@ router.get("/login", function(req, res) {
 	res.render("login");
 });
 
+// log out
 router.get("/logout", function(req, res) {
 	req.session.loggedIn = false;
 	res.render("logout");
@@ -52,10 +55,13 @@ router.post("/login", function(req, res) {
 });
 
 router.get("/:id", function(req, res) {
-	var thisFriend, theirReceivedMessages, isLoggedIn, myId;
+	var thisFriend, theirReceivedMessages, isLoggedIn, myId, viewingOwnPage;
 	if (req.session.loggedIn === true) {
 		isLoggedIn = true;
 		myId = req.session.myId;
+		if (myId === req.params.id) {
+			viewingOwnPage = true;
+		}
 	};
 	Message.find({to: req.params.id}, function(err, messages) {
 		theirReceivedMessages = messages;
@@ -65,7 +71,8 @@ router.get("/:id", function(req, res) {
 				friend: thisFriend,
 				messages: theirReceivedMessages,
 				loggedIn: isLoggedIn,
-				myId: myId
+				myId: myId,
+				viewingOwnPage: viewingOwnPage
 			};
 			res.render("profile", fullObject);
 		});

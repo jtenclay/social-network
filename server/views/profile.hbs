@@ -1,8 +1,8 @@
 <h1>{{friend.name}}</h1>
 <p>Favorite emoji: {{friend.favoriteEmoji}}</p>
 
-{{#if loggedIn}}
-<p>This is you!! wow {{myID}}</p>
+{{#if viewingOwnPage}}
+<p>This is you!! wow {{myId}}</p>
 {{/if}}
 
 <div class="bubble-wrapper">
@@ -12,5 +12,4 @@
 </div>
 
 <input id="emoji-field" placeholder="emoji" />
-<input id="from-field" placeholder="from" />
 <button type="submit" id="send-emoji">Submit</button>
