@@ -3,6 +3,7 @@ var express = require("express"),
 	bodyParser = require("body-parser"),
 	Friend = require("../models/Friend"),
 	Message = require("../models/Message"),
+	session = require("express-session"),
 	bcrypt = require("bcrypt");
 
 router.use(bodyParser.urlencoded({extended: true}));
@@ -21,16 +22,50 @@ router.get("/register", function(req, res) {
 	res.render("register");
 });
 
+// get login page
+router.get("/login", function(req, res) {
+	res.render("login");
+});
+
+router.get("/logout", function(req, res) {
+	req.session.loggedIn = false;
+	res.render("logout");
+});
+
+// login with information
+router.post("/login", function(req, res) {
+	Friend.findOne({username: req.body.username}, function(err, friend) {
+		if (friend) {
+			bcrypt.compare(req.body.password, friend.password, function(err, match) {
+				if (match === true) {
+					req.session.loggedIn = true;
+					req.session.myId = friend._id;
+					res.redirect("/friends/" + friend._id);
+				} else {
+					res.send("something's incorrect and you can't log in, sorry y y y pass wrong"); // password was wrong
+				}
+			});
+		} else {
+			res.send("something's incorrect and you can't log in, sorry y y y user wrong") // username not found
+		};
+	});
+});
+
 router.get("/:id", function(req, res) {
-	var thisFriend;
-	var theirReceivedMessages;
+	var thisFriend, theirReceivedMessages, isLoggedIn, myId;
+	if (req.session.loggedIn === true) {
+		isLoggedIn = true;
+		myId = req.session.myId;
+	};
 	Message.find({to: req.params.id}, function(err, messages) {
 		theirReceivedMessages = messages;
 		Friend.findById(req.params.id, function(err, friend) {
 			thisFriend = friend;
 			var fullObject = {
 				friend: thisFriend,
-				messages: theirReceivedMessages
+				messages: theirReceivedMessages,
+				loggedIn: isLoggedIn,
+				myId: myId
 			};
 			res.render("profile", fullObject);
 		});
