@@ -11,13 +11,14 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.get("/", function(req, res) {
 	var myId;
 	if (req.session.loggedIn === true) {
-		myId = req.session.myId;
-	};
-	Friend.find(function(err, friends) {
-		var listOfFriends = {friends, myId: myId};
-		console.log(listOfFriends)
-		res.render("friends-list", listOfFriends);
-	})
+		Friend.find(function(err, friends) {
+			var listOfFriends = {friends, myId: req.session.myId};
+			console.log(listOfFriends)
+			res.render("friends-list", listOfFriends);
+		})
+	} else {
+		res.redirect("/");
+	}
 });
 
 router.get("/register", function(req, res) {
@@ -55,28 +56,28 @@ router.post("/login", function(req, res) {
 });
 
 router.get("/:id", function(req, res) {
-	var thisFriend, theirReceivedMessages, isLoggedIn, myId, viewingOwnPage;
 	if (req.session.loggedIn === true) {
-		isLoggedIn = true;
-		myId = req.session.myId;
-		if (myId === req.params.id) {
+		var thisFriend, theirReceivedMessages, isLoggedIn, viewingOwnPage;
+		if (req.session.myId === req.params.id) {
 			viewingOwnPage = true;
-		}
-	};
-	Message.find({to: req.params.id}, function(err, messages) {
-		theirReceivedMessages = messages;
-		Friend.findById(req.params.id, function(err, friend) {
-			thisFriend = friend;
-			var fullObject = {
-				friend: thisFriend,
-				messages: theirReceivedMessages,
-				loggedIn: isLoggedIn,
-				myId: myId,
-				viewingOwnPage: viewingOwnPage
-			};
-			res.render("profile", fullObject);
+		};
+		Message.find({to: req.params.id}, function(err, messages) {
+			theirReceivedMessages = messages;
+			Friend.findById(req.params.id, function(err, friend) {
+				thisFriend = friend;
+				var fullObject = {
+					friend: thisFriend,
+					messages: theirReceivedMessages,
+					loggedIn: req.session.loggedIn,
+					myId: req.session.myId,
+					viewingOwnPage: viewingOwnPage
+				};
+				res.render("profile", fullObject);
+			});
 		});
-	});
+	} else {
+		res.redirect("/");
+	}
 });
 
 router.post("/", function(req, res) {

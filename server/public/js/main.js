@@ -28,7 +28,7 @@ $("#send-emoji").click(function() {
 
 
 
-// make user
+// make user (hard-coded into register view as a form)
 
 // $("#sign-up").click(function() {
 // 	var emojiMessage = $("#emoji-field").val();
