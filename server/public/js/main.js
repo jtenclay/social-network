@@ -1,4 +1,6 @@
-console.log("ok")
+
+
+// send emoji message to database and update page
 
 $("#send-emoji").click(function() {
 	var emojiMessage = $("#emoji-field").val();
@@ -22,3 +24,25 @@ $("#send-emoji").click(function() {
 		}
 	});
 });
+
+
+
+// inline validation to make sure emoji message is not more than one character
+
+var oldVal = $("#emoji-field").val();
+$("#emoji-field").on("propertychange change click keyup input paste", function() {
+	if ($(this).val().length > 1) {
+		//
+
+		$(this).val(oldVal);
+	} else {
+		oldVal = $(this).val();
+	};
+});
+
+
+
+
+
+
+
