@@ -9,10 +9,9 @@ var express = require("express"),
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.get("/", function(req, res) {
-	var myId;
 	if (req.session.loggedIn === true) {
 		Friend.find(function(err, friends) {
-			var listOfFriends = {friends, myId: req.session.myId};
+			var listOfFriends = {friends, myId: req.session.myId, myName: req.session.myName};
 			console.log(listOfFriends)
 			res.render("friends-list", listOfFriends);
 		})
@@ -44,6 +43,7 @@ router.post("/login", function(req, res) {
 				if (match === true) {
 					req.session.loggedIn = true;
 					req.session.myId = friend._id;
+					req.session.myName = friend.name;
 					res.redirect("/friends/" + friend._id);
 				} else {
 					res.send("something's incorrect and you can't log in, sorry y y y pass wrong"); // password was wrong
@@ -70,6 +70,7 @@ router.get("/:id", function(req, res) {
 					messages: theirReceivedMessages,
 					loggedIn: req.session.loggedIn,
 					myId: req.session.myId,
+					myName: req.session.myName,
 					viewingOwnPage: viewingOwnPage
 				};
 				res.render("profile", fullObject);

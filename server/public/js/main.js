@@ -58,7 +58,7 @@ $("#send-emoji").click(function() {
 // inline validation to make sure emoji message is not more than one character
 
 var oldVal = $("#emoji-field").val();
-var emojiCharCodes = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+var emojiCharCodes = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g; /\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g
 $("#emoji-field").on("propertychange change click keyup input paste", function() {
 	// see https://mathiasbynens.be/notes/javascript-unicode
 	// if the input is only one char (counting emoji as one instead of two) and is an emoji
