@@ -62,7 +62,7 @@ var emojiCharCodes = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g; /\ud83c[\udf00-\udfff]|\
 $("#emoji-field").on("propertychange change click keyup input paste", function() {
 	// see https://mathiasbynens.be/notes/javascript-unicode
 	// if the input is only one char (counting emoji as one instead of two) and is an emoji
-	if ($(this).val().replace(emojiCharCodes, '_').length < 2 && $(this).val().match(emojiCharCodes)) {
+	if ($(this).val().replace(emojiCharCodes, '_').length < 2 && $(this).val().charCodeAt(0) > 1000) {
 		// then let it through
 		oldVal = $(this).val();
 	} else {
