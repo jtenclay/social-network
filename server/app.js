@@ -6,9 +6,9 @@ var express = require("express"),
 require("./db/db");
 
 var FriendController = require("./controllers/FriendController");
-app.use("/friends", FriendController);
-
 var MessageController = require("./controllers/MessageController");
+
+app.use("/friends", FriendController);
 app.use("/messages", MessageController);
 
 app.use(express.static(path.join(__dirname, "public")));

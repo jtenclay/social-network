@@ -2,7 +2,8 @@ var express = require("express"),
 	router = express.Router(),
 	bodyParser = require("body-parser"),
 	Friend = require("../models/Friend"),
-	Message = require("../models/Message");
+	Message = require("../models/Message"),
+	bcrypt = require("bcrypt");
 
 router.use(bodyParser.urlencoded({extended: true}));
 
@@ -14,6 +15,10 @@ router.get("/", function(req, res) {
 		res.render("friends-list", listOfFriends);
 		console.log(listOfFriends);
 	})
+});
+
+router.get("/register", function(req, res) {
+	res.render("register");
 });
 
 router.get("/:id", function(req, res) {
@@ -33,24 +38,32 @@ router.get("/:id", function(req, res) {
 });
 
 router.post("/", function(req, res) {
-	var friend = new Friend({
-		name: req.body.name,
-		favoriteEmoji: req.body.favoriteEmoji,
-		friends: req.body.friends,
-		receivedEmoji: req.body.receivedEmoji
-	});
-	friend.save();
-	res.json(friend);
+	bcrypt.hash(req.body.password, 10, function(err, hash) {
+		var friend = new Friend({
+			username: req.body.username,
+			password: hash,
+			name: req.body.name,
+			favoriteEmoji: req.body.favoriteEmoji,
+			friends: req.body.friends,
+			receivedEmoji: req.body.receivedEmoji
+		});
+		friend.save();
+		res.json(friend);
+	})
 });
 
 router.patch("/:id", function(req, res) {
 	Friend.findById(req.params.id, function(err, friend) {
-		friend.name = req.body.name || friend.name;
-		friend.favoriteEmoji = req.body.favoriteEmoji || friend.favoriteEmoji;
-		friend.friends = req.body.friends || friend.friends;
-		friend.receivedEmoji = req.body.receivedEmoji || friend.receivedEmoji;
-		friend.save();
-		res.json(friend);
+		bcrypt.hash(req.body.password, 10, function(err, hash) {
+			friend.name = req.body.name || friend.name;
+			friend.username = req.body.username || friend.username;
+			friend.password = hash || friend.password;
+			friend.favoriteEmoji = req.body.favoriteEmoji || friend.favoriteEmoji;
+			friend.friends = req.body.friends || friend.friends;
+			friend.receivedEmoji = req.body.receivedEmoji || friend.receivedEmoji;
+			friend.save();
+			res.json(friend);
+		})
 	});
 });
 

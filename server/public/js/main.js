@@ -32,8 +32,7 @@ $("#send-emoji").click(function() {
 var oldVal = $("#emoji-field").val();
 $("#emoji-field").on("propertychange change click keyup input paste", function() {
 	if ($(this).val().length > 1) {
-		//
-
+		// and is NOT two high unicodes, then:
 		$(this).val(oldVal);
 	} else {
 		oldVal = $(this).val();
