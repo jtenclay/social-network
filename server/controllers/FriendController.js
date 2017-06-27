@@ -48,7 +48,8 @@ router.post("/", function(req, res) {
 			receivedEmoji: req.body.receivedEmoji
 		});
 		friend.save();
-		res.json(friend);
+		console.log(friend);
+		res.redirect("/friends/" + friend._id);
 	})
 });
 
