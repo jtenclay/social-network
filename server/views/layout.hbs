@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body>
+<body{{#if friend}} id="{{friend._id}}"{{/if}}>
 	<h1>Social app so fun!</h1>
 	{{{ body }}}
 	<script type="text/javascript" src="../js/main.js"></script>

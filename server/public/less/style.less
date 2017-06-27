@@ -3,3 +3,21 @@
 body {
 	background-color: @main-color;
 }
+
+.emoji-bubble {
+	background-color: yellow;
+	display: inline-block;
+	padding: .5rem;
+	span {
+		background-color: lightblue;
+		display: none;
+		position: absolute;
+		padding: .5rem;
+		transform: translateX(-50%);
+	};
+	&:hover {
+		span {
+			display: block;
+		}
+	}
+}

@@ -5,13 +5,12 @@
 <p>This is you!! wow</p>
 {{/if}}
 
-<ol>
+<div class="bubble-wrapper">
 	{{#each messages}}
-		<li>{{this.emojiMessage}}</li>
+		<span class="emoji-bubble">{{this.emojiMessage}}<span>From: {{this.from}},<br>{{this.timeStamp}}</span></span>
 	{{/each}}
-</ol>
+</div>
 
 <input id="emoji-field" placeholder="emoji" />
-<input id="to-field" placeholder="to" />
 <input id="from-field" placeholder="from" />
 <button type="submit" id="send-emoji">Submit</button>

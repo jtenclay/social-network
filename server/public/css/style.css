@@ -1,3 +1,18 @@
 body {
   background-color: #c0ffee;
 }
+.emoji-bubble {
+  background-color: yellow;
+  display: inline-block;
+  padding: .5rem;
+}
+.emoji-bubble span {
+  background-color: lightblue;
+  display: none;
+  position: absolute;
+  padding: .5rem;
+  transform: translateX(-50%);
+}
+.emoji-bubble:hover span {
+  display: block;
+}

@@ -10,14 +10,16 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 router.get("/", function(req, res) {
 	Friend.find(function(err, friends) {
-		res.json(friends);
+		var listOfFriends = {friends};
+		res.render("friends-list", listOfFriends);
+		console.log(listOfFriends);
 	})
 });
 
 router.get("/:id", function(req, res) {
 	var thisFriend;
 	var theirReceivedMessages;
-	Message.find(function(err, messages) {
+	Message.find({to: req.params.id}, function(err, messages) {
 		theirReceivedMessages = messages;
 		Friend.findById(req.params.id, function(err, friend) {
 			thisFriend = friend;
@@ -40,7 +42,6 @@ router.post("/", function(req, res) {
 	friend.save();
 	res.json(friend);
 });
-
 
 router.patch("/:id", function(req, res) {
 	Friend.findById(req.params.id, function(err, friend) {
