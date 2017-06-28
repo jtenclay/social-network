@@ -2,6 +2,25 @@
 
 body {
 	background-color: @main-color;
+	margin: 0;
+	padding: 0;
+}
+
+nav div {
+	float: right;
+	&.left {
+		float: left;
+	}
+	&.right p {
+		float: left;
+		margin-left: 2rem;
+	}
+}
+
+.wrapper {
+	width: 100%;
+	max-width: 60rem;
+	margin: 0 auto;
 }
 
 .emoji-bubble {
@@ -15,6 +34,7 @@ body {
 		background-color: lightblue;
 		display: none;
 		position: absolute;
+		font-size: 1rem;
 		padding: .5rem;
 		transform: translateX(-50%);
 	};
@@ -23,4 +43,12 @@ body {
 			display: block;
 		}
 	}
+}
+
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
 }

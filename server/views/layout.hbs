@@ -6,14 +6,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body{{#if friend}} id="{{friend._id}}"{{/if}} data-logged-in-user="{{session.myId}}">
-	<nav>
-		<p><a href="../friends/">See all friends</a></p>
+	<nav class="wrapper clearfix">
+		<div class="left">
+			<p>It's fun to send emoji!!!</p>
+		</div>
+		<div class="right">
+			<p><a href="../friends/">See all friends</a></p>
 		{{#if session.loggedIn}}
-		<p>Hey {{session.myName}}! &ndash; <a href="/friends/logout">Logout</a></p>
+			<p>Hey {{session.myName}}! <a href="/friends/logout">Logout</a></p>
 		{{/if}}
+		</div>
 	</nav>
-	<h1>Social app so fun!</h1>
-	{{{ body }}}
+	<div class="wrapper">
+		{{{ body }}}
+	</div>
 	<script type="text/javascript" src="../js/main.js"></script>
 </body>
 </html>
