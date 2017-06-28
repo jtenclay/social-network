@@ -57,12 +57,30 @@ $("#send-emoji").click(function() {
 
 // inline validation to make sure emoji message is not more than one character
 
+// emoji lengths:
+// find zero width joiner and take out the thing following it
+// take out skin color
+
+var findEmojiLength = function(string) {
+	// take out skin color
+	string = string.replace(/\uD83C[\uDFFb-\uDFFF]/g, "") // these are the range of skin colors
+	// replace surrogate pairs with one character
+	string = string.replace(emojiCharCodes, "_");
+	// take out zero-width joiner and the character that follows
+	string = string.replace(/\u200d./g, ""); // \u200d is zero-width joiner
+	// return the length of edited string
+	return string.length;
+}
+
+
+
+
 var oldVal = $("#emoji-field").val();
-var emojiCharCodes = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g; /\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g
+var emojiCharCodes = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g; 
 $("#emoji-field").on("propertychange change click keyup input paste", function() {
 	// see https://mathiasbynens.be/notes/javascript-unicode
-	// if the input is only one char (counting emoji as one instead of two) and is an emoji
-	if ($(this).val().replace(emojiCharCodes, '_').length < 2 && $(this).val().charCodeAt(0) > 1000) {
+	// if the input is only one char (counting emoji as one instead of two) and is an emoji (hack!!)
+	if ((findEmojiLength($(this).val()) < 2 && $(this).val().charCodeAt(0) > 1000) || $(this).val().length === 0) {
 		// then let it through
 		oldVal = $(this).val();
 	} else {

@@ -11,9 +11,9 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.get("/", function(req, res) {
 	if (req.session.loggedIn === true) {
 		Friend.find(function(err, friends) {
-			var listOfFriends = {friends, myId: req.session.myId, myName: req.session.myName};
-			console.log(listOfFriends)
-			res.render("friends-list", listOfFriends);
+			var renderObject = {friends, session: req.session};
+			console.log(renderObject)
+			res.render("friends-list", renderObject);
 		})
 	} else {
 		res.redirect("/");
@@ -57,24 +57,19 @@ router.post("/login", function(req, res) {
 
 router.get("/:id", function(req, res) {
 	if (req.session.loggedIn === true) {
-		var thisFriend, theirReceivedMessages, isLoggedIn, viewingOwnPage;
+		var thisFriend, viewingOwnPage;
 		if (req.session.myId === req.params.id) {
 			viewingOwnPage = true;
 		};
-		Message.find({to: req.params.id}, function(err, messages) {
-			theirReceivedMessages = messages;
-			Friend.findById(req.params.id, function(err, friend) {
-				thisFriend = friend;
-				var fullObject = {
-					friend: thisFriend,
-					messages: theirReceivedMessages,
-					loggedIn: req.session.loggedIn,
-					myId: req.session.myId,
-					myName: req.session.myName,
-					viewingOwnPage: viewingOwnPage
-				};
-				res.render("profile", fullObject);
-			});
+
+		Friend.findById(req.params.id).populate({path: "receivedMessages", populate: {path: "from"}}).exec(function(err, friend) {
+			var renderObject = {
+				friend: friend,
+				session: req.session,
+				viewingOwnPage: viewingOwnPage
+			};
+			console.log(renderObject.friend);
+			res.render("profile", renderObject);
 		});
 	} else {
 		res.redirect("/");

@@ -5,7 +5,9 @@ var FriendSchema = new mongoose.Schema({
 	username: String,
 	password: String,
 	favoriteEmoji: String,
-	friends: Array
+	friends: [{type: mongoose.Schema.Types.ObjectId, ref: "Friend"}],
+	receivedMessages: [{type: mongoose.Schema.Types.ObjectId, ref: "Message"}],
+	sentMessages: [{type: mongoose.Schema.Types.ObjectId, ref: "Message"}]
 });
 
 var friendModel = mongoose.model("Friend", FriendSchema);

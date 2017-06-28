@@ -5,9 +5,14 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body{{#if friend}} id="{{friend._id}}"{{/if}} data-logged-in-user="{{myId}}">
+<body{{#if friend}} id="{{friend._id}}"{{/if}} data-logged-in-user="{{session.myId}}">
+	<nav>
+		<p><a href="../friends/">See all friends</a></p>
+		{{#if session.loggedIn}}
+		<p>Hey {{session.myName}}! &ndash; <a href="/friends/logout">Logout</a></p>
+		{{/if}}
+	</nav>
 	<h1>Social app so fun!</h1>
-	<p>You're logged in as {{#if myName}}{{myName}}{{/if}}</p>
 	{{{ body }}}
 	<script type="text/javascript" src="../js/main.js"></script>
 </body>

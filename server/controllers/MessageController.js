@@ -1,6 +1,7 @@
 var express = require("express"),
 	router = express.Router(),
 	bodyParser = require("body-parser"),
+	Friend = require("../models/Friend"),
 	Message = require("../models/Message");
 
 router.use(bodyParser.urlencoded({extended: true}));
@@ -26,6 +27,15 @@ router.post("/", function(req, res) {
 		timeStamp: req.body.timeStamp
 	});
 	message.save();
+	Friend.findById(message.from, function(err, friend) {
+		friend.sentMessages.push(message.id);
+		friend.save();
+	})
+	Friend.findById(message.to, function(err, friend) {
+		console.log(friend);
+		friend.receivedMessages.push(message.id);
+		friend.save();
+	})
 	res.json(message);
 });
 

@@ -6,12 +6,10 @@
 {{/if}}
 
 <div class="bubble-wrapper">
-	{{#each messages}}
-		<span class="emoji-bubble">{{this.emojiMessage}}<span>From: {{this.from}},<br>{{this.timeStamp}}</span></span>
+	{{#each friend.receivedMessages}}
+		<span class="emoji-bubble">{{this.emojiMessage}}<span>From: {{this.from.name}},<br>{{this.timeStamp}}</span></span>
 	{{/each}}
 </div>
 
 <input id="emoji-field" placeholder="emoji" />
 <button type="submit" id="send-emoji">Submit</button>
-
-<div><a href="../friends/">See all friends</a></div>
