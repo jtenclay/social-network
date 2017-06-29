@@ -1,7 +1,14 @@
 body {
   background-color: #c0ffee;
+  color: #131918;
   margin: 0;
   padding: 0;
+}
+body,
+input,
+button {
+  font-family: 'Inconsolata', monospace;
+  font-size: 1rem;
 }
 nav div {
   float: right;
@@ -19,12 +26,13 @@ nav div.right p {
   margin: 0 auto;
 }
 .emoji-bubble {
-  background-color: yellow;
+  border: 1px dotted #47948A;
   display: inline-block;
-  padding: .5rem;
+  padding: .5rem .625rem .75rem .625rem;
   font-size: 1.5rem;
   border-radius: 50%;
   height: 1.5rem;
+  width: 1.5rem;
 }
 .emoji-bubble span {
   background-color: lightblue;

@@ -10,5 +10,11 @@
 	{{/each}}
 </div>
 
-<input id="emoji-field" placeholder="emoji" />
-<button type="submit" id="send-emoji">Submit</button>
+{{#if viewingOwnPage}}
+	<p>You can't post on your own page :/</p>
+{{else}}
+	<input id="emoji-field" placeholder="emoji" />
+	<button type="submit" id="send-emoji">Submit</button>
+	<br>
+	<button type="submit" id="random-emoji">Send a random emoji!</button>
+{{/if}}

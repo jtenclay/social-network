@@ -68,7 +68,6 @@ router.get("/:id", function(req, res) {
 				session: req.session,
 				viewingOwnPage: viewingOwnPage
 			};
-			console.log(renderObject.friend);
 			res.render("profile", renderObject);
 		});
 	} else {

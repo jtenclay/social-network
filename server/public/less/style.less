@@ -1,9 +1,17 @@
 @main-color: #c0ffee;
+@text-color: #131918;
+@border-color: #47948A;
 
 body {
 	background-color: @main-color;
+	color: @text-color;
 	margin: 0;
 	padding: 0;
+}
+
+body, input, button {
+	font-family: 'Inconsolata', monospace;
+	font-size: 1rem;
 }
 
 nav div {
@@ -24,12 +32,13 @@ nav div {
 }
 
 .emoji-bubble {
-	background-color: yellow;
+	border: 1px dotted @border-color;
 	display: inline-block;
-	padding: .5rem;
+	padding: .5rem .625rem .75rem .625rem;
 	font-size: 1.5rem;
 	border-radius: 50%;
 	height: 1.5rem;
+	width: 1.5rem;
 	span {
 		background-color: lightblue;
 		display: none;
