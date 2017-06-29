@@ -53,9 +53,13 @@ h2 {
   font-weight: 700;
   margin: 0 0 2rem 0;
 }
-h2 span {
+h2 span.note {
   font-size: 1rem;
   font-weight: 400;
+}
+h2 span.emoji {
+  position: relative;
+  top: .25rem;
 }
 .wrapper {
   width: 100%;

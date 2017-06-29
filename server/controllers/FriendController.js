@@ -32,7 +32,7 @@ router.get("/login", function(req, res) {
 // log out
 router.get("/logout", function(req, res) {
 	req.session.loggedIn = false;
-	res.render("logout");
+	res.redirect("/logout.html");
 });
 
 // login with information
