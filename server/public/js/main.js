@@ -1,5 +1,6 @@
 
 
+
 // send emoji message to database and update page
 
 $("#send-emoji").click(function() {
@@ -81,10 +82,6 @@ $("#random-emoji").click(function() {
 
 
 // inline validation to make sure emoji message is not more than one character
-
-// emoji lengths:
-// find zero width joiner and take out the thing following it
-// take out skin color
 
 var findEmojiLength = function(string) {
 	// take out skin color

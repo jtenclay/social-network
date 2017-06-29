@@ -92,18 +92,14 @@ router.post("/", function(req, res) {
 });
 
 router.patch("/:id", function(req, res) {
-	Friend.findById(req.params.id, function(err, friend) {
-		bcrypt.hash(req.body.password, 10, function(err, hash) {
-			friend.name = req.body.name || friend.name;
-			friend.username = req.body.username || friend.username;
-			friend.password = hash || friend.password;
-			friend.favoriteEmoji = req.body.favoriteEmoji || friend.favoriteEmoji;
-			friend.friends = req.body.friends || friend.friends;
-			friend.receivedEmoji = req.body.receivedEmoji || friend.receivedEmoji;
-			friend.save();
-			res.json(friend);
-		})
-	});
+	bcrypt.hash(req.body.password, 10, function(err, hash) {
+		req.body.password = hash;
+		Friend.update({_id: req.params.id}, req.body, function(err, friend) {
+			Friend.findById(req.params.id, function(err, friend) {
+				res.json(friend);
+			});
+		});
+	})
 });
 
 router.delete("/:id", function(req, res) {
