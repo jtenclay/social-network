@@ -86,7 +86,9 @@ router.post("/", function(req, res) {
 			receivedEmoji: req.body.receivedEmoji
 		});
 		friend.save();
-		console.log(friend);
+		req.session.loggedIn = true;
+		req.session.myId = friend._id;
+		req.session.myName = friend.name;
 		res.redirect("/friends/" + friend._id);
 	})
 });
