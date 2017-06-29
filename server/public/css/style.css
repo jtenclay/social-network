@@ -7,14 +7,40 @@ body {
 p {
   margin: 0 0 1rem 0;
 }
+input {
+  padding: .5rem;
+  color: #131918;
+}
+input::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #47948A;
+}
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #47948A;
+  opacity: 1;
+}
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #47948A;
+  opacity: 1;
+}
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #47948A;
+}
+input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #47948A;
+}
 input,
 button {
-  padding: .5rem;
-  border: 1px solid #131918;
-  color: #131918;
+  border: 1px solid #47948A;
 }
 button {
   padding: .5rem 1rem;
+  background-color: #47948A;
+  color: white;
 }
 body,
 input,
@@ -89,8 +115,25 @@ h2 span.emoji {
   padding: .5rem;
   transform: translateX(-50%);
 }
+.emoji-bubble span .timestamp {
+  transform: none;
+  margin-left: 0;
+  position: relative;
+  padding: 0;
+}
 .emoji-bubble:hover span {
   display: block;
+}
+a {
+  color: #47948A;
+  text-decoration: none !important;
+  background: none;
+}
+a:hover {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #47948A 50%);
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  background-position: 0px 15px;
 }
 .clearfix:after {
   content: " ";

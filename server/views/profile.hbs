@@ -1,7 +1,7 @@
 <h2>{{friend.name}}'s emoji {{#if viewingOwnPage}}<span class="note">(it's you!){{myName}}</span>{{/if}}</h2>
 
 <div class="bubble-wrapper">
-	{{#each friend.receivedMessages}}<span class="emoji-bubble">{{this.emojiMessage}}<span>From: {{this.from.name}},<br>{{this.timeStamp}}</span></span>{{/each}}
+	{{#each friend.receivedMessages}}<span class="emoji-bubble">{{this.emojiMessage}}<span>From: {{this.from.name}},<br><span class="timestamp">{{this.timeStamp}}</span></span></span>{{/each}}
 </div>
 
 {{#if viewingOwnPage}}
